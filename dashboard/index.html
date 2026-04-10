@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>VerEIT AI - ICU Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="../src/style.css">
+  </head>
+  <body>
+    <div class="app-container">
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header"><span class="logo-text">VerEIT AI</span></div>
+            <nav class="sidebar-nav">
+                <a href="#" class="nav-item active"><i class="fas fa-desktop"></i><span class="nav-text">Live Monitoring</span></a>
+                <a href="#" class="nav-item"><i class="fas fa-procedures"></i><span class="nav-text">Patient List</span></a>
+                <a href="#" class="nav-item"><i class="fas fa-wave-square"></i><span class="nav-text">Calibration</span></a>
+                <a href="#" class="nav-item"><i class="fas fa-cog"></i><span class="nav-text">Settings</span></a>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+            <header class="top-header">
+                <div class="header-title-area">
+                    <button class="menu-toggle" id="menu-toggle"><i class="fas fa-bars"></i></button>
+                    <h2>Regional Ventilation Monitoring</h2>
+                    <select id="patient-dropdown" class="patient-selector">
+                        <option value="patient1">Bed 01 - John Doe (Normal)</option>
+                        <option value="patient2">Bed 02 - Jane Smith (Lung Cancer)</option>
+                    </select>
+                </div>
+                <div class="user-profile">Dr. Valerie Josephine Dirjayanto</div>
+            </header>
+
+            <div class="content-area">
+                <div class="top-visual-row">
+                    <div class="card">
+                        <h3>CT Scan Reference</h3>
+                        <div class="visual-box">
+                            <img id="ct-img" src="src/assets/Normal case.png" alt="CT Scan Reference" style="width: 100%; height: 100%; object-fit: contain;">
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <h3 style="text-align: center;">Real-time EIT (Caudal-Cranial)</h3>
+                        <div class="visual-box" style="background-color: transparent;">
+                            <img id="eit-img" src="src/assets/vereit_live_monitoring.gif" alt="Live EIT" style="width: 120%; height: 150%; object-fit: contain;">
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <h3 style="display: flex; justify-content: space-between;">
+                            <span>Tidal Volume Monitoring</span>
+                            <span style="font-size: 12px; color: #1a73e8;"><i class="fas fa-sync-alt"></i> Live Sync</span>
+                        </h3>
+                        <div class="graph-stack">
+                            <div class="graph-item" style="background-color: #f8f9fa; border: 1px solid #e0e0e0;">
+                                <canvas id="tidalChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bottom-info-row">
+                    <div class="card chat-container">
+                        <h3><i class="fas fa-robot" style="color: #1a73e8; margin-right: 8px;"></i> VerEIT Assistant</h3>
+                        <div class="chat-history" id="chat-history">
+                            <div class="message ai-message" id="welcome-message">Hello Dr. Valerie Josephine Dirjayanto. Bed 01 shows normal spatiotemporal distribution. No anomalies detected.</div>
+                        </div>
+                        <div class="chat-input-area">
+                            <input type="text" id="chat-input" placeholder="Ask Gemini for medical advice or analysis...">
+                            <button id="send-btn"><i class="fas fa-paper-plane"></i></button>
+                        </div>
+                    </div>
+
+                    <div class="card info-card">
+                        <h3>VerEIT Analysis</h3>
+                        <ul id="analysis-list">
+                            <li><strong>Status:</strong> <span style="color: #0f9d58; font-weight: bold;">Normal Ventilation</span></li>
+                            <li><strong>Indication:</strong> Healthy Lungs</li>
+                            <li><strong>Location:</strong> N/A</li>
+                            <li><strong>Max Conductivity:</strong> 1.2 S/m</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    <script type="module" src="src/main.js"></script>
+  </body>
+</html>
