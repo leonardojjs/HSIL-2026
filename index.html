@@ -1,65 +1,14 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>VerEIT AI - ICU Dashboard</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
-
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
-        body { background-color: #f0f4f9; color: #1f1f1f; }
-        .app-container { display: flex; height: 100vh; overflow: hidden; }
-
-        /* --- SIDEBAR STYLING --- */
-        .sidebar { width: 260px; background-color: #f0f4f9; transition: all 0.3s ease; display: flex; flex-direction: column; padding: 20px 10px; }
-        .sidebar.collapsed { width: 70px; }
-        .sidebar.collapsed .logo-text, .sidebar.collapsed .nav-text { display: none; }
-        .sidebar-header { padding: 10px 15px; margin-bottom: 30px; font-size: 20px; font-weight: 600; color: #1a73e8; white-space: nowrap; }
-        .nav-item { display: flex; align-items: center; padding: 12px 15px; color: #444746; text-decoration: none; border-radius: 25px; margin-bottom: 5px; transition: background 0.2s; white-space: nowrap; }
-        .nav-item:hover { background-color: #e0e4e9; }
-        .nav-item.active { background-color: #c2e7ff; color: #001d35; font-weight: 500; }
-        .nav-item i { font-size: 18px; min-width: 30px; }
-
-        /* --- MAIN CONTENT STYLING --- */
-        .main-content { flex: 1; display: flex; flex-direction: column; background-color: #ffffff; border-radius: 20px 0 0 20px; box-shadow: -5px 0 15px rgba(0,0,0,0.05); }
-        .top-header { height: 70px; display: flex; align-items: center; padding: 0 30px; border-bottom: 1px solid #e0e0e0; justify-content: space-between; }
-        .menu-toggle { background: none; border: none; font-size: 20px; cursor: pointer; color: #5f6368; margin-right: 20px; }
-        
-        /* --- PATIENT SELECTOR STYLING --- */
-        .header-title-area { display: flex; align-items: center; gap: 20px; }
-        .patient-selector { padding: 8px 15px; font-size: 14px; font-weight: 500; color: #1f1f1f; background-color: #f8f9fa; border: 1px solid #dadce0; border-radius: 8px; outline: none; cursor: pointer; transition: border-color 0.2s; }
-        .patient-selector:hover, .patient-selector:focus { border-color: #1a73e8; }
-        .content-area { padding: 30px; overflow-y: auto; }
-
-        /* --- GRID STRUCTURE --- */
-        .top-visual-row { display: grid; grid-template-columns: 1fr 1.2fr 1fr; gap: 20px; margin-bottom: 20px; }
-        .bottom-info-row { display: grid; grid-template-columns: 2fr 1fr; gap: 20px; }
-
-        .card { background: #fff; border: 1px solid #e0e0e0; border-radius: 15px; padding: 15px; display: flex; flex-direction: column; }
-        .card h3 { font-size: 15px; color: #444746; margin-bottom: 10px; border-bottom: 1px solid #f0f4f9; padding-bottom: 8px; }
-        .visual-box { background-color: transparent; border-radius: 8px; height: 400px; display: flex; align-items: center; justify-content: center; color: #888; overflow: hidden; }
-        
-        .graph-stack { display: flex; flex-direction: column; gap: 10px; height: 400px; }
-        .graph-item { flex: 1; background-color: #1e1e1e; border-radius: 8px; display: flex; align-items: center; justify-content: center; color: #888; font-size: 13px; position: relative; padding: 10px; }
-        .info-card ul { list-style: none; margin-top: 10px; line-height: 2; }
-
-        /* --- CHATBOT STYLING --- */
-        .chat-container { height: 320px; }
-        .chat-history { flex: 1; overflow-y: auto; padding: 15px; background-color: #f8f9fa; border-radius: 10px; margin-bottom: 10px; display: flex; flex-direction: column; gap: 10px; }
-        .message { max-width: 80%; padding: 10px 15px; border-radius: 15px; font-size: 13px; line-height: 1.4; }
-        .ai-message { background-color: #e8f0fe; color: #1a73e8; align-self: flex-start; border-bottom-left-radius: 2px; }
-        .user-message { background-color: #1a73e8; color: white; align-self: flex-end; border-bottom-right-radius: 2px; }
-        .chat-input-area { display: flex; gap: 10px; }
-        .chat-input-area input { flex: 1; padding: 10px 15px; border: 1px solid #e0e0e0; border-radius: 25px; outline: none; font-size: 13px; }
-        .chat-input-area button { background-color: #1a73e8; color: white; border: none; border-radius: 50%; width: 38px; height: 38px; cursor: pointer; transition: background 0.2s; }
-    </style>
-</head>
-
-<body>
+    <link rel="stylesheet" href="src/style.css">
+  </head>
+  <body>
     <div class="app-container">
         <aside class="sidebar" id="sidebar">
             <div class="sidebar-header"><span class="logo-text">VerEIT AI</span></div>
@@ -89,14 +38,14 @@
                     <div class="card">
                         <h3>CT Scan Reference</h3>
                         <div class="visual-box">
-                            <img id="ct-img" src="Assets/Normal case.png" alt="CT Scan Reference" style="width: 100%; height: 100%; object-fit: contain;">
+                            <img id="ct-img" src="src/assets/Normal case.png" alt="CT Scan Reference" style="width: 100%; height: 100%; object-fit: contain;">
                         </div>
                     </div>
 
                     <div class="card">
                         <h3 style="text-align: center;">Real-time EIT (Caudal-Cranial)</h3>
                         <div class="visual-box" style="background-color: transparent;">
-                            <img id="eit-img" src="Assets/vereit_live_monitoring.gif" alt="Live EIT" style="width: 120%; height: 150%; object-fit: contain;">
+                            <img id="eit-img" src="src/assets/vereit_live_monitoring.gif" alt="Live EIT" style="width: 120%; height: 150%; object-fit: contain;">
                         </div>
                     </div>
 
@@ -138,241 +87,6 @@
             </div>
         </main>
     </div>
-
-    <script>
-        // --- UI Logic ---
-        document.getElementById('menu-toggle').addEventListener('click', () => document.getElementById('sidebar').classList.toggle('collapsed'));
-
-        // --- REALISTIC BREATHING DATA GENERATOR (Non-Sinusoidal) ---
-        let timeTick = 0;
-        let isCancer = false; // Flag to determine breathing pattern
-        const baseline = 3000; // Functional Residual Capacity (FRC) average (~3L)
-
-        // Function to smooth the curve (easing)
-        const ease = (t) => (1 - Math.cos(t * Math.PI)) / 2;
-
-        function getBreathingVolume() {
-            timeTick++;
-            let vol = baseline;
-            
-            // Adding subtle natural noise (sensor/breathing vibration)
-            const noise = (Math.random() - 0.5) * 40; 
-
-            if (isCancer) {
-                // CANCER PATTERN: Fast, shallow, no deep breath (Restrictive Pattern)
-                // 1 Cycle takes 90 ticks (Faster breathing rate)
-                const cycle = timeTick % 90; 
-                
-                if (cycle < 30) {
-                    // Shallow inspiration
-                    vol = baseline + 300 * ease(cycle / 30);
-                } else if (cycle < 70) {
-                    // Slow expiration
-                    vol = baseline + 300 * ease(1 - ((cycle - 30) / 40));
-                } else {
-                    // Short resting pause
-                    vol = baseline;
-                }
-            } else {
-                // NORMAL PATTERN: 2 Normal -> 1 Deep Breath (IRV) -> Long Expiration (ERV)
-                // 1 Cycle takes 350 ticks (Long and rhythmic)
-                const cycle = timeTick % 350; 
-                
-                if (cycle < 40) {
-                    // Normal Breath 1 (Inhale)
-                    vol = baseline + 500 * ease(cycle / 40);
-                } else if (cycle < 100) {
-                    // Normal Breath 1 (Exhale)
-                    vol = baseline + 500 * ease(1 - ((cycle - 40) / 60));
-                } else if (cycle < 140) {
-                    // Normal Breath 2 (Inhale)
-                    vol = baseline + 500 * ease((cycle - 100) / 40);
-                } else if (cycle < 200) {
-                    // Normal Breath 2 (Exhale)
-                    vol = baseline + 500 * ease(1 - ((cycle - 140) / 60));
-                } else if (cycle < 260) {
-                    // DEEP INSPIRATION (Inspiratory Reserve Volume)
-                    vol = baseline + 2500 * ease((cycle - 200) / 60);
-                } else {
-                    // LONG EXPIRATION (Expiratory Reserve Volume + Return to normal)
-                    const phase = (cycle - 260) / 90; // 0 to 1
-                    if (phase < 0.6) {
-                        // Drop below normal baseline (Full exhale)
-                        vol = (baseline - 800) + (3300) * ease(1 - (phase / 0.6));
-                    } else {
-                        // Slowly return to baseline
-                        vol = (baseline - 800) + 800 * ease((phase - 0.6) / 0.4);
-                    }
-                }
-            }
-            return vol + noise;
-        }
-        
-        // --- CHART.JS INITIALIZATION ---
-        const ctx = document.getElementById('tidalChart').getContext('2d');
-        const numPoints = 150; // Widen X-axis view to show full cycles
-        
-        const tidalChart = new Chart(ctx, {
-            type: 'line',
-            data: {
-                labels: Array(numPoints).fill(''), 
-                datasets: [{
-                    label: 'Volume (mL)',
-                    borderColor: '#0f9d58', 
-                    backgroundColor: 'rgba(15, 157, 88, 0.1)',
-                    borderWidth: 2.5,
-                    pointRadius: 0,
-                    tension: 0.4, // Make curve flow smoothly
-                    fill: true,
-                    data: Array(numPoints).fill(baseline) 
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                animation: false,
-                scales: {
-                    // Y-Axis: Volume
-                    y: { 
-                        min: 1500, max: 6000, 
-                        title: { display: true, text: 'Lung Volume (mL)', color: '#5f6368', font: { weight: 'bold' } },
-                        grid: { color: '#e0e0e0' }
-                    },
-                    // X-Axis: Time
-                    x: { 
-                        display: true, 
-                        title: { display: true, text: 'Time (Continuous Monitoring)', color: '#5f6368', font: { style: 'italic' } },
-                        grid: { display: false },
-                        ticks: { display: false } // Hide numbers to mimic real-time oscilloscope
-                    }
-                },
-                plugins: { legend: { display: false } }
-            }
-        });
-
-        // Animation loop (20x per second)
-        setInterval(() => {
-            tidalChart.data.datasets[0].data.push(getBreathingVolume());
-            tidalChart.data.datasets[0].data.shift();
-            tidalChart.update();
-        }, 50);
-
-        // --- PATIENT SWITCHING LOGIC ---
-        const patientData = {
-            "patient1": {
-                ctImage: "Normal case.png", 
-                eitImage: "vereit_live_monitoring.gif", 
-                statusHtml: '<span style="color: #0f9d58; font-weight: bold;">Normal Ventilation</span>',
-                indication: "Healthy Lungs",
-                location: "N/A",
-                conductivity: "1.2 S/m",
-                welcomeMsg: "Hello Dr. Valerie Josephine Dirjayanto. Bed 01 shows normal spatiotemporal distribution. No anomalies detected.",
-                color: '#0f9d58', // Normal Green
-                bgColor: 'rgba(15, 157, 88, 0.1)',
-                cancerFlag: false
-            },
-            "patient2": {
-                ctImage: "Malignant case.jpg", 
-                eitImage: "vereit_live_monitoring.gif", 
-                statusHtml: '<span style="color: #d93025; font-weight: bold;">Malignancy Detected</span>',
-                indication: "Suspected Lung Carcinoma",
-                location: "Left Lung",
-                conductivity: "3.8 S/m",
-                welcomeMsg: "Hello Dr. Valerie Josephine Dirjayanto. I have detected a highly conductive anomaly in the left lung for Bed 02, indicative of a malignant mass.",
-                color: '#d93025', // Danger Red
-                bgColor: 'rgba(217, 48, 37, 0.1)',
-                cancerFlag: true
-            }
-        };
-
-        const patientDropdown = document.getElementById('patient-dropdown');
-        const analysisList = document.getElementById('analysis-list');
-        const welcomeMessage = document.getElementById('welcome-message');
-
-        patientDropdown.addEventListener('change', function() {
-            const selected = patientData[this.value];
-            
-            document.getElementById('ct-img').src = selected.ctImage;
-            document.getElementById('eit-img').src = selected.eitImage;
-            
-            analysisList.innerHTML = `
-                <li><strong>Status:</strong> ${selected.statusHtml}</li>
-                <li><strong>Indication:</strong> ${selected.indication}</li>
-                <li><strong>Location:</strong> ${selected.location}</li>
-                <li><strong>Max Conductivity:</strong> ${selected.conductivity}</li>
-            `;
-            welcomeMessage.innerText = selected.welcomeMsg;
-            
-            // Update Graph Color & Breathing Pattern
-            isCancer = selected.cancerFlag;
-            tidalChart.data.datasets[0].borderColor = selected.color;
-            tidalChart.data.datasets[0].backgroundColor = selected.bgColor;
-            
-            const chatHistory = document.getElementById('chat-history');
-            chatHistory.innerHTML = ''; 
-            const msgDiv = document.createElement('div');
-            msgDiv.classList.add('message', 'ai-message');
-            msgDiv.innerText = selected.welcomeMsg;
-            chatHistory.appendChild(msgDiv);
-        });
-
-        // --- Gemini Chatbot Logic ---
-        const GEMINI_API_KEY = "AIzaSyAjAFCCeQLuOkK6_Vd3MVTSqbA8YFLPquc"; 
-        const chatInput = document.getElementById('chat-input');
-        const sendBtn = document.getElementById('send-btn');
-
-        function appendMessage(text, isUser) {
-            const chatHistory = document.getElementById('chat-history');
-            const msgDiv = document.createElement('div');
-            msgDiv.classList.add('message', isUser ? 'user-message' : 'ai-message');
-            msgDiv.innerText = text;
-            chatHistory.appendChild(msgDiv);
-            chatHistory.scrollTop = chatHistory.scrollHeight;
-        }
-
-        async function fetchGeminiResponse(userPrompt) {
-            if (!GEMINI_API_KEY) return "API Key has not been entered.";
-            const currentPatientName = patientDropdown.options[patientDropdown.selectedIndex].text;
-            const systemContext = `You are VerEIT AI, a smart medical assistant in the ICU. Your task is to help doctors analyze EIT results. You are currently discussing ${currentPatientName}.`;
-            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${GEMINI_API_KEY}`;
-            
-            try {
-                const response = await fetch(apiUrl, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        contents: [{ parts: [{ text: systemContext + "\n\nDoctor's Question: " + userPrompt }] }]
-                    })
-                });
-                const data = await response.json();
-                if (!response.ok) return `Error: ${data.error.message}`;
-                return data.candidates && data.candidates[0].content.parts[0].text ? data.candidates[0].content.parts[0].text : "Sorry, the response format is empty.";
-            } catch (error) { return "Failed to contact the server."; }
-        }
-
-        sendBtn.addEventListener('click', async () => {
-            const text = chatInput.value.trim();
-            if (!text) return;
-            appendMessage(text, true);
-            chatInput.value = '';
-
-            const chatHistory = document.getElementById('chat-history');
-            const loadingId = "loading-" + Date.now();
-            const msgDiv = document.createElement('div');
-            msgDiv.id = loadingId;
-            msgDiv.classList.add('message', 'ai-message');
-            msgDiv.innerText = "Analyzing data...";
-            chatHistory.appendChild(msgDiv);
-            chatHistory.scrollTop = chatHistory.scrollHeight;
-
-            const aiResponse = await fetchGeminiResponse(text);
-            document.getElementById(loadingId).remove();
-            appendMessage(aiResponse, false);
-        });
-
-        chatInput.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') sendBtn.click();
-        });
-    </script>
-</body>
+    <script type="module" src="src/main.js"></script>
+  </body>
 </html>
