@@ -1,4 +1,8 @@
 import './style.css'
+import normalCaseUrl from './assets/Normal case.png';
+import abnormalCaseUrl from './assets/vereit_cancer.gif';
+import malignantCaseUrl from './assets/Malignant case.jpg';
+import liveMonitoringUrl from './assets/vereit_live_monitoring.gif';
 
 // --- 1. STATE & GLOBAL VARIABLES ---
 let timeTick = 0;
@@ -11,8 +15,8 @@ const GEMINI_API_KEY = import.meta.env.VITE_GEMINI_API_KEY;
 const patientData = {
     "patient1": {
         name: "Putri Pratama",
-        ctImage: "Normal case.png", 
-        eitImage: "vereit_live_monitoring.gif", 
+        ctImage: normalCaseUrl, 
+        eitImage: liveMonitoringUrl, 
         statusHtml: '<span style="color: #0f9d58; font-weight: bold;">Normal Ventilation</span>',
         indication: "Healthy Lungs",
         location: "N/A",
@@ -23,8 +27,8 @@ const patientData = {
     },
     "patient2": {
         name: "Maya Ramadhan",
-        ctImage: "Malignant case.jpg", 
-        eitImage: "vereit_cancer.gif", 
+        ctImage: malignantCaseUrl, 
+        eitImage: abnormalCaseUrl, 
         statusHtml: '<span style="color: #d93025; font-weight: bold;">Abnormality Detected</span>',
         indication: "Asthmatic / Malignant mass",
         location: "Left Inferior Lobe",
@@ -158,8 +162,8 @@ function updatePatientDashboard(key) {
         `;
     }
 
-    document.getElementById('ct-img').src = `../src/assets/${selected.ctImage}`;
-    document.getElementById('eit-img').src = `../src/assets/${selected.eitImage}`;
+    document.getElementById('ct-img').src = selected.ctImage;
+    document.getElementById('eit-img').src = selected.eitImage;
 
     // Update Chart Pattern & Style
     isCancer = selected.cancerFlag;
