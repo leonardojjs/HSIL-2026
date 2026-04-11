@@ -1,92 +1,128 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
+<head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>VerEIT AI - ICU Dashboard</title>
+    <title>VerEIT AI | ICU Dashboard</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <link rel="stylesheet" href="../src/style.css">
-  </head>
-  <body>
-    <div class="app-container">
-        <aside class="sidebar" id="sidebar">
-            <div class="sidebar-header"><span class="logo-text">VerEIT AI</span></div>
-            <nav class="sidebar-nav">
-                <a href="#" class="nav-item active"><i class="fas fa-desktop"></i><span class="nav-text">Live Monitoring</span></a>
-                <a href="#" class="nav-item"><i class="fas fa-procedures"></i><span class="nav-text">Patient List</span></a>
-                <a href="#" class="nav-item"><i class="fas fa-wave-square"></i><span class="nav-text">Calibration</span></a>
-                <a href="#" class="nav-item"><i class="fas fa-cog"></i><span class="nav-text">Settings</span></a>
-            </nav>
-        </aside>
+    <style>
+        /* Minimalist Glass Pill Style */
+        .glass-pill {
+            background: rgba(255, 255, 255, 0.45);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
 
-        <main class="main-content">
-            <header class="top-header">
-                <div class="header-title-area">
-                    <button class="menu-toggle" id="menu-toggle"><i class="fas fa-bars"></i></button>
-                    <h2>Regional Ventilation Monitoring</h2>
-                    <select id="patient-dropdown" class="patient-selector">
-                        <option value="patient1">Bed 01 - John Doe (Normal)</option>
-                        <option value="patient2">Bed 02 - Jane Smith (Lung Cancer)</option>
+        .inner-visual-container {
+            border-radius: 2rem;
+            background: rgba(255, 255, 255, 0.25);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            overflow: hidden;
+        }
+
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+        select { appearance: none; outline: none; }
+    </style>
+</head>
+<body class="bg-[#F0F2F5] text-zinc-900 antialiased h-screen flex p-6 gap-6 font-['Inter'] overflow-hidden">
+
+    <aside class="glass-pill w-72 flex flex-col p-8 shrink-0 rounded-[2.5rem]">
+        <div class="mb-12 px-2 flex justify-center">
+            <img src="../src/assets/VerEIT AI Logo.png" alt="VerEIT AI Logo" class="w-40 object-contain">
+        </div>
+
+        <nav class="flex-1 space-y-2">
+            <a href="#" class="flex items-center gap-4 px-6 py-4 rounded-full bg-white text-violet-600 font-bold border border-white/20">
+                <i class="fas fa-desktop text-sm"></i><span class="text-sm">Monitoring</span>
+            </a>
+            <a href="#" class="flex items-center gap-4 px-6 py-4 rounded-full text-zinc-500 hover:bg-white/40 transition-all font-medium">
+                <i class="fas fa-procedures text-sm"></i><span class="text-sm">Patient List</span>
+            </a>
+        </nav>
+
+        <div class="mt-auto bg-white/30 p-5 rounded-[2rem] border border-white/40">
+            <p class="text-[9px] uppercase tracking-[0.2em] text-zinc-400 font-black mb-1">On Duty</p>
+            <p class="text-xs font-bold text-zinc-800 italic">Dr. Valerie Josephine</p>
+        </div>
+    </aside>
+
+    <main class="flex-1 flex flex-col gap-6 overflow-y-auto no-scrollbar">
+        
+        <header class="glass-pill px-8 py-4 flex justify-between items-center rounded-full sticky top-0 z-10">
+            <div class="flex flex-col min-w-[320px]">
+                <span class="text-[9px] font-black uppercase tracking-[0.2em] text-zinc-400 ml-1 mb-1">Clinical Subject Selector</span>
+                <div class="relative">
+                    <select id="patient-dropdown" class="bg-violet-600 text-white px-6 py-2.5 rounded-full text-sm font-bold border-none cursor-pointer w-full transition-all hover:bg-violet-700">
+                        <option value="patient1">BED 01 — Putri Pratama (F)</option>
+                        <option value="patient2">BED 02 — Maya Ramadhan (F)</option>
                     </select>
+                    <i class="fas fa-chevron-down absolute right-4 top-1/2 -translate-y-1/2 text-[10px] text-white/70 pointer-events-none"></i>
                 </div>
-                <div class="user-profile">Dr. Valerie Josephine Dirjayanto</div>
-            </header>
+            </div>
 
-            <div class="content-area">
-                <div class="top-visual-row">
-                    <div class="card">
-                        <h3>CT Scan Reference</h3>
-                        <div class="visual-box">
-                            <img id="ct-img" src="../src/assets/Normal case.png" alt="CT Scan Reference" style="width: 100%; height: 100%; object-fit: contain;">
-                        </div>
-                    </div>
+            <div class="flex items-center gap-4">
+                <div class="flex items-center gap-3 px-5 py-2.5 rounded-full bg-emerald-500/10 border border-emerald-500/20">
+                    <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                    <span class="text-[10px] font-black text-emerald-600 uppercase tracking-widest">Live Sync</span>
+                </div>
+            </div>
+        </header>
 
-                    <div class="card">
-                        <h3 style="text-align: center;">Real-time EIT (Caudal-Cranial)</h3>
-                        <div class="visual-box" style="background-color: transparent;">
-                            <img id="eit-img" src="../src/assets/vereit_live_monitoring.gif" alt="Live EIT" style="width: 120%; height: 150%; object-fit: contain;">
-                        </div>
-                    </div>
-
-                    <div class="card">
-                        <h3 style="display: flex; justify-content: space-between;">
-                            <span>Tidal Volume Monitoring</span>
-                            <span style="font-size: 12px; color: #1a73e8;"><i class="fas fa-sync-alt"></i> Live Sync</span>
-                        </h3>
-                        <div class="graph-stack">
-                            <div class="graph-item" style="background-color: #f8f9fa; border: 1px solid #e0e0e0;">
-                                <canvas id="tidalChart"></canvas>
-                            </div>
-                        </div>
+        <div class="flex flex-col gap-6">
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <div class="glass-pill p-8 rounded-[2.5rem] flex flex-col min-h-[380px]">
+                    <h3 class="text-[10px] font-black uppercase tracking-[0.2em] text-zinc-400 mb-6">CT Reference</h3>
+                    <div class="inner-visual-container flex-1 flex items-center justify-center p-6">
+                        <img id="ct-img" src="../src/assets/Normal case.png" alt="CT" class="max-h-full object-contain mix-blend-multiply opacity-80 transition-all duration-500">
                     </div>
                 </div>
 
-                <div class="bottom-info-row">
-                    <div class="card chat-container">
-                        <h3><i class="fas fa-robot" style="color: #1a73e8; margin-right: 8px;"></i> VerEIT Assistant</h3>
-                        <div class="chat-history" id="chat-history">
-                            <div class="message ai-message" id="welcome-message">Hello Dr. Valerie Josephine Dirjayanto. Bed 01 shows normal spatiotemporal distribution. No anomalies detected.</div>
-                        </div>
-                        <div class="chat-input-area">
-                            <input type="text" id="chat-input" placeholder="Ask Gemini for medical advice or analysis...">
-                            <button id="send-btn"><i class="fas fa-paper-plane"></i></button>
-                        </div>
+                <div class="glass-pill p-8 rounded-[2.5rem] flex flex-col min-h-[380px]">
+                    <h3 class="text-[10px] font-black uppercase tracking-[0.2em] text-zinc-400 mb-6">EIT Live Monitor</h3>
+                    <div class="inner-visual-container flex-1 bg-black relative">
+                        <img id="eit-img" src="../src/assets/vereit_live_monitoring.gif" alt="EIT" class="w-full h-full object-cover">
+                        <div class="absolute bottom-4 right-6 text-[9px] font-black text-violet-400/50 uppercase italic tracking-widest">Real-time Feed</div>
                     </div>
+                </div>
 
-                    <div class="card info-card">
-                        <h3>VerEIT Analysis</h3>
-                        <ul id="analysis-list">
-                            <li><strong>Status:</strong> <span style="color: #0f9d58; font-weight: bold;">Normal Ventilation</span></li>
-                            <li><strong>Indication:</strong> Healthy Lungs</li>
-                            <li><strong>Location:</strong> N/A</li>
-                            <li><strong>Max Conductivity:</strong> 1.2 S/m</li>
-                        </ul>
+                <div class="glass-pill p-8 rounded-[2.5rem] flex flex-col min-h-[380px]">
+                    <h3 class="text-[10px] font-black uppercase tracking-[0.2em] text-zinc-400 mb-6">Breathing Pattern</h3>
+                    <div class="inner-visual-container flex-1 p-4">
+                        <canvas id="tidalChart"></canvas>
                     </div>
                 </div>
             </div>
-        </main>
-    </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-5 gap-6 mb-10">
+                <div class="glass-pill col-span-3 p-8 rounded-[2.5rem]">
+                    <h3 class="text-[10px] font-black uppercase tracking-[0.2em] text-zinc-400 mb-6">
+                        <i class="fas fa-robot text-violet-500 mr-2"></i> VerEIT Assistant
+                    </h3>
+                    <div id="chat-history" class="mb-6 p-6 rounded-[2rem] bg-white/20 border border-white/20 text-sm leading-relaxed text-zinc-600 italic min-h-[100px]">
+                        </div>
+                    <div class="flex gap-3 p-1.5 bg-white/30 rounded-full border border-white/40 items-center pr-2">
+                        <input type="text" id="chat-input" placeholder="Consult clinical intelligence..." class="bg-transparent flex-1 px-6 text-sm focus:outline-none">
+                        <button id="send-btn" class="w-10 h-10 rounded-full bg-violet-600 text-white flex items-center justify-center hover:scale-105 transition-transform">
+                            <i class="fas fa-arrow-up text-xs"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="glass-pill col-span-2 p-8 rounded-[2.5rem] flex flex-col gap-4 justify-center">
+                    <h3 class="text-[10px] font-black uppercase tracking-[0.2em] text-zinc-400 mb-2">System Analysis</h3>
+                    <ul id="analysis-list" class="space-y-3">
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </main>
+
     <script type="module" src="../src/main.js"></script>
-  </body>
+</body>
 </html>
