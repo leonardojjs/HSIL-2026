@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>VerEIT AI | Patient Database</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .glass-pill {
+            background: rgba(255, 255, 255, 0.45);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+</head>
+<body class="bg-[#F0F2F5] text-zinc-900 antialiased h-screen flex p-6 gap-6 font-['Inter'] overflow-hidden">
+
+    <aside class="glass-pill w-72 flex flex-col p-8 shrink-0 rounded-[2.5rem]">
+        <div class="mb-12 px-2 flex justify-center">
+            <a href="/"><img src="../src/assets/VerEIT AI Logo.png" alt="VerEIT AI Logo" class="w-40 object-contain"></a>
+        </div>
+
+        <nav class="flex-1 space-y-2">
+            <a href="/dashboard/" class="flex items-center gap-4 px-6 py-4 rounded-full text-zinc-500 hover:bg-white/40 transition-all font-medium">
+                <i class="fas fa-desktop text-sm"></i><span class="text-sm">Monitoring</span>
+            </a>
+            <a href="/patient-list/" class="flex items-center gap-4 px-6 py-4 rounded-full bg-white text-violet-600 font-bold border border-white/20">
+                <i class="fas fa-procedures text-sm"></i><span class="text-sm">Patient List</span>
+            </a>
+        </nav>
+
+        <div class="mt-auto bg-white/30 p-5 rounded-[2rem] border border-white/40">
+            <p class="text-[9px] uppercase tracking-[0.2em] text-zinc-400 font-black mb-1">On Duty</p>
+            <p class="text-xs font-bold text-zinc-800 italic">Dr. Valerie Josephine</p>
+        </div>
+    </aside>
+
+    <main class="flex-1 flex flex-col gap-6 overflow-y-auto no-scrollbar">
+        
+        <header class="glass-pill px-8 py-4 flex justify-between items-center rounded-full sticky top-0 z-10">
+            <div class="flex flex-col min-w-[400px]">
+                <span class="text-[9px] font-black uppercase tracking-[0.2em] text-zinc-400 ml-1 mb-1">Clinical Subject Database</span>
+                <div class="relative flex items-center">
+                    <i class="fas fa-search absolute left-5 text-zinc-400 text-xs"></i>
+                    <input type="text" id="patient-search" placeholder="Search by name or ID..." 
+                           class="w-full bg-white/50 border border-white/40 px-12 py-2.5 rounded-full text-sm focus:outline-none focus:ring-2 focus:ring-violet-500/20 transition-all">
+                </div>
+            </div>
+
+            <div class="flex items-center gap-3 px-5 py-2.5 rounded-full bg-violet-500/10 border border-violet-500/20">
+                <span class="text-[10px] font-black text-violet-600 uppercase tracking-widest">Total Subjects: <span id="subject-count">0</span></span>
+            </div>
+        </header>
+
+        <div class="glass-pill p-4 rounded-[2.5rem] flex-1 overflow-hidden flex flex-col">
+            <div class="overflow-y-auto no-scrollbar flex-1 rounded-[2rem] bg-white/20">
+                <table class="w-full text-left border-collapse">
+                    <thead class="sticky top-0 bg-[#F0F2F5] z-10">
+                        <tr>
+                            <th class="p-6 text-[9px] font-black uppercase tracking-widest text-zinc-400">ID</th>
+                            <th class="p-6 text-[9px] font-black uppercase tracking-widest text-zinc-400">Patient Name</th>
+                            <th class="p-6 text-[9px] font-black uppercase tracking-widest text-zinc-400">Details</th>
+                            <th class="p-6 text-[9px] font-black uppercase tracking-widest text-zinc-400">EIT Status</th>
+                        </tr>
+                    </thead>
+                    <tbody id="patient-table-body" class="text-sm font-medium text-zinc-700 divide-y divide-white/20">
+                        </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+
+    <script type="module" src="../src/patient-list.js"></script>
+</body>
+</html>
